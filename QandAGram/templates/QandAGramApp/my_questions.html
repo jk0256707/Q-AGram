@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>📌 My Questions</h2>
+
+  {% if questions %}
+    {% for question in questions %}
+      <div style="padding: 10px; border-bottom: 1px solid #ddd;">
+        <h4><a href="{% url 'question_detail' question.pk %}">{{ question.title }}</a></h4>
+        <p>{{ question.created_at|date:"M d, Y H:i" }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>You haven’t asked any questions yet 😅</p>
+    <a href="{% url 'post_question' %}">Ask your first one →</a>
+  {% endif %}
+
+  <p><a href="{% url 'home' %}">← Back to all questions</a></p>
+</div>
+{% endblock %}

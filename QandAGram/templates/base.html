@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&AGram</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .header h2 {
+      margin: 0;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .header a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    form {
+      display: inline;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="header">
+      <h1>Q&AGram</h1>
+    </div>
+    <div class="header">
+      {% if user.is_authenticated %}
+        <p> <h2>Welcome, {{ user.username | upper }} </h2></p>
+        <p><a href="{% url 'my_questions' %}">My Questions</a></p>
+        <p>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        </p>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Signup</a>
+      {% endif %}
+  </div>
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+</div>
+</body>
+</html>
